@@ -3,4 +3,4 @@
 
 ## Exploration des données
 
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/NNH6PX-2euM/0.jpg)](http://www.youtube.com/watch?v=NNH6PX-2euM)
+[![Kaggel References]](https://kaggle2.blob.core.windows.net/competitions/kaggle/6768/logos/header.png)](https://www.kaggle.com/c/web-traffic-time-series-forecasting)
