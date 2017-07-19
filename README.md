@@ -1,10 +1,13 @@
-# Kaggel-Web-Traffic-Time-Series-Forecasting
+# Kaggel Challenge
+## Web Traffic Time Series Forecasting
 
 <a href="https://www.kaggle.com/c/web-traffic-time-series-forecasting" target="_blank">
- <img src="https://www.kaggle.com/static/images/host-home/host-home-recruiting.png?v=daa83a72816a"
-   alt="kaggel references" width="400" height="200" border="5" padding="10" />
+ <img src="http://hypescience.com/wp-content/uploads/2011/12/Wikipedia-logo.png"
+   alt="kaggel references" width="200" height="" align="middle"/>
 </a>
 
 > [Kaggel constest references](https://www.kaggle.com/c/web-traffic-time-series-forecasting)
 
 ## Data exploration
+
+Number of row with invalide data => 27786
