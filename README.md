@@ -6,7 +6,7 @@
    alt="kaggel references" width="200" height="" align="middle"/>
 </a>
 
-> [Kaggel constest references](https://www.kaggle.com/c/web-traffic-time-series-forecasting)
+> [Kaggel contest references](https://www.kaggle.com/c/web-traffic-time-series-forecasting)
 
 ## Data exploration
 
