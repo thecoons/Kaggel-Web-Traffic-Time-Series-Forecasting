@@ -1,10 +1,11 @@
 '''Fonctions pour web trafic wiki.'''
+import math
 import random as rdm
 import re
-from numba import jit
+
 # import matplotlib.pyplot as plt
 import pandas as pd
-import math
+from numba import jit
 
 
 def load_data_ananas(file_path):
