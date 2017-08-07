@@ -54,12 +54,12 @@ def get_language_ananas(page):
 def smap_fast(y_true, y_pred):
     out = 0
     for i in range(y_true.shape[0]):
-        a = y_true[i]
-        b = y_pred[i]
-        c = a+b
-        if c == 0:
+        val_true = y_true[i]
+        val_pred = y_pred[i]
+        val_sum = val_true + val_pred
+        if val_sum == 0:
             continue
-        out += math.fabs(a - b) / c
+        out += math.fabs(val_true - val_pred) / val_sum
     out *= (200.0 / y_true.shape[0])
 
     return out
