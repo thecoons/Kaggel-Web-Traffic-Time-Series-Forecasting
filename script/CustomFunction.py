@@ -53,6 +53,7 @@ def get_language_ananas(page):
 
 @jit
 def smap_fast(y_true, y_pred):
+    """Function de scoring SMAP."""
     out = 0
     for i in range(y_true.shape[0]):
         val_true = y_true[i]
