@@ -1,10 +1,14 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-import re
+'''Fonctions pour web trafic wiki.'''
 import random as rdm
+import re
+from numba import jit
+# import matplotlib.pyplot as plt
+import pandas as pd
+import math
 
 
 def load_data_ananas(file_path):
+    '''Charge les données issues du CSV.'''
     # Loadind csv train file and drop row where 'NaN' is in.
     df_train = pd.read_csv(file_path).dropna()
 
@@ -21,24 +25,41 @@ def load_data_ananas(file_path):
 
 # Effectue un sample de taille de donnée et d'index aléatoire sur chaque row.
 # Système de seed pour la génération afin d'évaluer
-def sample_data_row_ananas(df, size_row, seed=rdm.random()):
+def sample_data_row_ananas(dframe, size_row, seed=rdm.random()):
+    '''Créer une selection partielle des series temporelles.'''
     rdm.seed(seed)
-    arr_random = [rdm.randint(0, df.shape[1]-(1 + size_row)) for i in range(df.shape[0])]
+    arr_random = [rdm.randint(0, dframe.shape[1]-(1 + size_row)) for i in range(dframe.shape[0])]
     df_sample = pd.DataFrame(columns=[i for i in range(size_row)])
-    for i in range(df.shape[0]):
-        sample = df.iloc[i, arr_random[i]: arr_random[i] + size_row]
+    for i in range(dframe.shape[0]):
+        sample = dframe.iloc[i, arr_random[i]: arr_random[i] + size_row]
         df_sample.loc[i] = sample.values
 
     return df_sample
 
 
-def select_by_contains_page_ananas(df, pattern):
-    return df.loc[lambda df: df.Page.str.contains(pattern), :]
+def select_by_contains_page_ananas(dframe, pattern):
+    """Selectionne les row contenant le pattern donné."""
+    return dframe.loc[lambda dframe: dframe.Page.str.contains(pattern), :]
 
 
 def get_language_ananas(page):
+    """Extrait la nationalitée de la page wiki."""
     res = re.search('[a-z][a-z].wikipedia.org', page)
     if res:
         return res.group(0)[:2]
 
     return 'media'
+
+@jit
+def smap_fast(y_true, y_pred):
+    out = 0
+    for i in range(y_true.shape[0]):
+        a = y_true[i]
+        b = y_pred[i]
+        c = a+b
+        if c == 0:
+            continue
+        out += math.fabs(a - b) / c
+    out *= (200.0 / y_true.shape[0])
+
+    return out
