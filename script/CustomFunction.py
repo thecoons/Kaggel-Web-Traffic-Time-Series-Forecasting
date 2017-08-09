@@ -2,6 +2,7 @@
 import math
 import random as rdm
 import re
+# import logging
 
 # import matplotlib.pyplot as plt
 import pandas as pd
@@ -33,6 +34,15 @@ def sample_data_row_ananas(dframe, size_row, seed=rdm.random()):
     df_sample = pd.DataFrame(columns=[i for i in range(size_row)])
     for i in range(dframe.shape[0]):
         sample = dframe.iloc[i, arr_random[i]: arr_random[i] + size_row]
+        df_sample.loc[i] = sample.values
+
+    return df_sample
+
+def sample_data_row_banana(dframe_row, size_row):
+    '''Créer une selection partielle des temportelles pour une unique time serie.'''
+    df_sample = pd.DataFrame(columns=[i for i in range(size_row)])
+    for i in range(dframe_row.shape[0] - (1 + size_row)):
+        sample = dframe_row.iloc[i:i+size_row]
         df_sample.loc[i] = sample.values
 
     return df_sample
