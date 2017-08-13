@@ -4,10 +4,25 @@ import random as rdm
 import re
 # import logging
 
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import pandas as pd
 from numba import jit
+# from sklearn.preprocessing import MinMaxScaler
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.layers import LSTM
 
+
+
+def model_lstm_ananas(look_back):
+    '''Model LSTM'''
+    model = Sequential()
+    model.add(LSTM(4, input_shape=(1, look_back), return_sequences=True))
+    model.add(LSTM(4, input_shape=(1, look_back)))
+    model.add(Dense(1))
+    model.compile(loss='mean_squared_error', optimizer='adam')
+
+    return model
 
 def load_data_ananas(file_path):
     '''Charge les données issues du CSV.'''
@@ -15,9 +30,9 @@ def load_data_ananas(file_path):
     df_train = pd.read_csv(file_path).dropna()
 
     # Itr on scoring columns
-    for col in df_train.columns[1:]:
-        # Cast float score to integer score, that safe 50% memory usage.
-        df_train[col] = pd.to_numeric(df_train[col], downcast='integer')
+    # for col in df_train.columns[1:]:
+    #     # Cast float score to integer score, that safe 50% memory usage.
+    #     df_train[col] = pd.to_numeric(df_train[col], downcast='integer')
 
     # Add column 'lang'
     df_train.insert(1, "lang", df_train.Page.map(get_language_ananas))
@@ -61,6 +76,17 @@ def get_language_ananas(page):
 
     return 'media'
 
+# def data_scalling_ananas(dframe):
+#     '''Normalisation des données.'''
+#     scaler = MinMaxScaler()
+
+#     return scaler.fit_transform(dframe), scaler
+
+# def data_unscalling_ananas(dframe, scaler):
+#     '''Unormalize data'''
+
+#     return scaler.inverse_transform(dframe)
+
 @jit
 def smap_fast(y_true, y_pred):
     """Function de scoring SMAP."""
@@ -75,3 +101,8 @@ def smap_fast(y_true, y_pred):
     out *= (200.0 / y_true.shape[0])
 
     return out
+
+def draw_plot(dframe):
+    '''Drawing pred'''
+    plt.plot(dframe)
+    plt.show()
